@@ -1,16 +1,28 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "./page.module.css";
+// import { Todos } from "../components/todo";
+import dynamic from "next/dynamic";
 
-const inter = Inter({ subsets: ['latin'] })
+const Todos = dynamic(() => import("../components/todo").then((m) => m.Todos), {
+  ssr: false,
+});
 
+const inter = Inter({ subsets: ["latin"] });
+
+console.log("outside Home", new Date());
 export default function Home() {
+  console.log("render Home", new Date());
   return (
     <main className={styles.main}>
+      <Todos></Todos>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
+          <>
+            {new Date().toString()}
+            Get started by editing&nbsp;
+            <code className={styles.code}>app/page.tsx</code>
+          </>
         </p>
         <div>
           <a
@@ -18,7 +30,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -87,5 +99,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
